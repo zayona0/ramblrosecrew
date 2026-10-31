@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramblerose's Sanctuary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #120c0a;
+            --bg-card: #1b120e;
+            --bg-hover: #261913;
+            --accent: #8c5840;
+            --accent-glow: #b07d62;
+            --text-main: #f0eae1;
+            --text-muted: #b8aaa0;
+            --border: #422a1e;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Amiri', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 950px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+        }
+
+        .site-header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .site-header h1 {
+            color: var(--text-main);
+            font-size: 2.5rem;
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+        }
+
+        .site-header p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+            font-style: italic;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+        }
+
+        .crew-intro-banner {
+            background: var(--bg-hover);
+            border-left: 4px solid var(--accent-glow);
+            border-radius: 4px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+            direction: ltr;
+            font-family: 'Cinzel', serif;
+        }
+
+        .crew-intro-banner h3 {
+            color: var(--accent-glow);
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 8px;
+        }
+
+        .crew-intro-banner p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin: 0 0 12px 0;
+        }
+
+        .crew-intro-banner .signature {
+            font-weight: bold;
+            color: var(--text-main);
+            margin-top: 15px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 12px 0;
+        }
+
+        .sidebar ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            color: var(--text-main);
+            padding-right: 5px;
+        }
+
+        .main-content {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        /* Scattered Art Photos Grid */
+        .scattered-gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .photo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+        }
+
+        .photo-card:nth-child(1) { grid-column: span 7; }
+        .photo-card:nth-child(2) { grid-column: span 5; }
+        .photo-card:nth-child(3) { grid-column: span 4; }
+        .photo-card:nth-child(4) { grid-column: span 4; }
+        .photo-card:nth-child(5) { grid-column: span 4; }
+        .photo-card:nth-child(6) { grid-column: span 12; }
+
+        .photo-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .photo-card:nth-child(6) img {
+            height: 220px;
+        }
+
+        .inline-gif {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .inline-gif img {
+            max-height: 50px;
+            opacity: 0.85;
+        }
+
+        /* نظام إخفاء وإظهار الأقسام */
+        .section-view {
+            display: none;
+        }
+        .section-view.active {
+            display: block;
+        }
+
+        /* أزرار الأقسام بالواجهة الرئيسية */
+        .sections-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .section-card-btn {
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .section-card-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent-glow);
+            transform: translateY(-3px);
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: var(--border);
+            color: var(--text-main);
+            padding: 6px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+        .back-btn:hover {
+            background: var(--accent);
+        }
+
+        .playlist-section, .library-links, .magazine-section, .guestbook-section {
+            background: var(--bg-hover);
+            color: var(--text-main);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .playlist-quote {
+            font-family: 'Cinzel', serif;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 12px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .playlist-section select {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-deep);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Amiri', serif;
+            margin-bottom: 12px;
+        }
+
+        .playlist-section audio {
+            width: 100%;
+        }
+
+        .btn-link {
+            display: block;
+            background: var(--accent);
+            color: var(--text-main);
+            text-align: center;
+            padding: 10px;
+            margin: 8px 0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.2s;
+        }
+
+        .btn-link:hover {
+            background: var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Site Header -->
+        <div class="site-header">
+            <h1>Ramblerose's Room</h1>
+            <p>Archival Gallery & Cassette Room</p>
+        </div>
+
+        <!-- Crew Intro Banner (رسالة الطاقم) -->
+        <div class="crew-intro-banner">
+            <h3>FROM THE DECK OF THE RAMBLEROSE</h3>
+            <p>To the outside world, and to every distant corner of the sprawling Seven Kingdoms:</p>
+            <p>From the depths of the darkness that precedes the dawn, and aboard the "Ramblerose"—a ship that neither compromises with the wind nor fears the waves—we send you our message.</p>
+            <p class="signature">— Remain free, even if it costs you all the waves of the sea.</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('books')">توصيات كتب</a></li>
+                    <li><a href="#" onclick="showSection('magazine')">طبعات المجلة</a></li>
+                    <li><a href="#" onclick="showSection('music')">Cassette Album</a></li>
+                    <li><a href="#" onclick="showSection('guestbook')">Guestbook</a></li>
+                </ul>
+
+                <h3 style="margin-top: 25px;">Avatar</h3>
+                <div class="photo-card" style="margin:0;">
+                    <img src="avatar.jpg" alt="Avatar">
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+
+                <!-- 1. واجهة الصفحة الرئيسية -->
+                <div id="home-view" class="section-view active">
+                    <h2 style="color: var(--text-main); margin-top: 0; font-family: 'Cinzel', serif;">Welcome to my digital room</h2>
+                    <p style="line-height: 1.8; color: var(--text-muted);">
+                        Here is the integrated archive: choose a path below to explore memories, books, or cassette tapes.
+                    </p>
+
+                    <div class="inline-gif">
+                        <img src="sticker1.gif" alt="Sticker 1">
+                    </div>
+
+                    <!-- أزرار الأقسام -->
+                    <div class="sections-menu">
+                        <a href="#" class="section-card-btn" onclick="showSection('books')">📚 توصيات كتب</a>
+                        <a href="#" class="section-card-btn" onclick="showSection('magazine')">📰 طبعات المجلة</a>
+                        <a href="#" class="section-card-btn" onclick="showSection('music')">🎵 Cassette Album</a>
+                        <a href="#" class="section-card-btn" onclick="showSection('guestbook')">💬 Guestbook</a>
+                    </div>
+
+                    <h3 style="color: var(--text-main); font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-family: 'Cinzel', serif; margin-top: 30px;">Photo Corners & Memories</h3>
+                    
+                    <div class="scattered-gallery">
+                        <div class="photo-card"><img src="photo1.jpg" alt="1"></div>
+                        <div class="photo-card"><img src="photo2.jpg" alt="2"></div>
+                        <div class="photo-card"><img src="photo3.jpg" alt="3"></div>
+                        <div class="photo-card"><img src="photo4.jpg" alt="4"></div>
+                        <div class="photo-card"><img src="photo5.jpg" alt="5"></div>
+                        <div class="photo-card"><img src="photo6.jpg" alt="6"></div>
+                    </div>
+
+                    <div class="inline-gif">
+                        <img src="sticker2.gif" alt="Sticker 2">
+                    </div>
+                </div>
+
+                <!-- 2. صفحة توصيات كتب -->
+                <div id="books-view" class="section-view">
+                    <a href="#" class="back-btn" onclick="showSection('home')">← عودة للرئيسية</a>
+                    <div class="library-links">
+                        <h3 style="margin-top: 0; color: var(--text-main); font-size: 1.1rem; font-family: 'Cinzel', serif;">📚 توصيات كتب</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">قائمة مختارة بعناية من الكتب والأرشيفات المتاحة للتحميل:</p>
+                        
+                        <a href="https://drive.google.com/file/d/1BVxSPEPjWFI5G7YndJ6vJDdEGco--gRD/view?usp=drivesdk“target="_blank" class="btn-link">The Body Keeps the Score</a>
+                        <a href="https://drive.google.com/file/d/1ip4HD6iZ8ftYMKnezq0oEUHkd1MsYHk3/view?usp=drivesdk"target="_blank" class="btn-link">Kitab Al-Bulhan</a>
+                        <a href="https://drive.google.com/file/d/1m603WBB1r3BT-sP-Ib68c4_DAF3h0OGm/view?usp=drivesdk"target="_blank" class="btn-link">Kamasutra</a>
+                        <a href="https://drive.google.com/file/d/1euzubotagz-QK_jmhtR98cZljT7SrmKF/view?usp=drivesdk"target="_blank" class="btn-link">Hour of The Star - Clarice Lispector</a>
+                    </div>
+                </div>
+
+                <!-- 3. صفحة طبعات المجلة -->
+                <div id="magazine-view" class="section-view">
+                    <a href="#" class="back-btn" onclick="showSection('home')">← عودة للرئيسية</a>
+                    <div class="magazine-section">
+                        <h3 style="margin-top: 0; color: var(--text-main); font-size: 1.1rem; font-family: 'Cinzel', serif;">📰 طبعات المجلة</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">أرشيف الإصدارات الخاصة والمجلات:</p>
+                        
+                        <a href="https://drive.google.com/file/d/10B6mhgzahbJdkLudCqZ56hLg6017br4Q/view?usp=drivesdk“target="_blank" class="btn-link">Rumble Roses Volume 0 (Magazine)</a>
+                    </div>
+                </div>
+
+                <!-- 4. صفحة الأغاني (Cassette Album) مع الكتابة والمشغل -->
+                <div id="music-view" class="section-view">
+                    <a href="#" class="back-btn" onclick="showSection('home')">← عودة للرئيسية</a>
+                    <div class="playlist-section">
+                        <span style="font-weight: bold; display: block; margin-bottom: 10px; font-family: 'Cinzel', serif;">🎵 Antique Cassette Album (10 Tracks)</span>
+                        
+                        <!-- الكتابة الفنية الخاصة بقسم الأغاني -->
+                        <div class="playlist-quote">
+                            "I don't choose songs because I like them.<br>
+                            This is how passengers choose.<br>
+                            I test them first: I put them in my ears and watch the compass.<br>
+                            If it starts pointing north, the song is a false one.<br>
+                            And if its hands spin for no reason, I keep it.<br>
+                            Navigation is not knowing where you are.<br>
+                            Navigation is knowing when you shouldn't know.<br>
+                            - Navigation Raheel"
+                        </div>
+
+                        <select onchange="document.getElementById('audioPlayer').src=this.value">
+                            <option value=“1<"https://drive.google.com/file/d/16qNMZtRIXzB0DpBSKVKnCSDooPCLdRi1/view?usp=drivesdk A Garland Of Breath</option>
+                            <option value=“2<"https//drive.google.com/file/d/1MKodBg3xoXNyy5ef07k6fWKtStnOuxNw/view?usp=drivesdk Ellora</option>
+                            <option value=“3<“https://drive.google.com/file/d/1QPMP_tqK076Rw8NRQh1EPOM2vEWNag1j/view?usp=drivesdk Leyli</option>
+                            <option value=“4<“https://drive.google.com/file/d/1Kx5l53FpgmFurhMh-GVCC1JmzuDHB8cb/view?usp=drivesdk Mist Weaving</option
+                            <option value=“5<"https://drive.google.com/file/d/1ilV4bMQQEI_ZL5oZq5HQUoe66a00xBPL/view?usp=drivesdk Roya</option>
+                            <option value=“6<"https://drive.google.com/file/d/1odby8I1Ytan_6Et3ijnk-R6eHmW4JvfX/view?usp=drivesdk Svarga</option>
+                            <option value=“7<"https://drive.google.com/file/d/1Wq2hEAxeV9GH0KhjrHoLERQwB9S0lrvt/view?usp=drivesdk Temple Of The Maiden</option>
+                            <option value=“8<“https://drive.google.com/file/d/1FnKUr9SF-qb4SguU4n8wDJ6iBgmdhCyD/view?usp=drivesdk The Promise</option>
+                            <option value=“9<"https://drive.google.com/file/d/1tlbP32sCpCoSTfOF5CgZKPxzCtJN4XLq/view?usp=drivesdk Varuna</option>
+                            <option value=“10<"https://drive.google.com/file/d/1qKvaU1-c8QmsJG9rchGx9Bli4XTt7HWR/view?usp=drivesdk Wajad</option>
+                        </select>
+                        <audio id="audioPlayer" controls>
+                            <source src="https://drive.google.com/file/d/1Fwlx2yU97CxE2v5PesJrhyRNg9yLN5Hw/view?usp=drivesdk"type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- 5. صفحة Guestbook -->
+                <div id="guestbook-view" class="section-view">
+                    <a href="#" class="back-btn" onclick="showSection('home')">← عودة للرئيسية</a>
+                    <div class="guestbook-section">
+                        <h3 style="margin-top: 0; color: var(--text-main); font-size: 1.1rem; font-family: 'Cinzel', serif;">💬 Chat & Guestbook</h3>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-muted);">Leave a trace here, a kind word, or a memory you pass by...</p>
+                        <div style="background: var(--bg-deep); border: 1px solid var(--border); padding: 12px; border-radius: 6px; font-size: 0.9rem; color: var(--text-muted);">
+                            <em>"Welcome to every traveler who left a piece of their soul here..."</em>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- برمجة التنقل الفوري بين الصفحات -->
+    <script>
+        function showSection(sectionId) {
+            const views = document.querySelectorAll('.section-view');
+            views.forEach(v => v.classList.remove('active'));
+            
+            const targetView = document.getElementById(sectionId + '-view');
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
